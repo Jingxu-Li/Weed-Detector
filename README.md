@@ -17,3 +17,9 @@ Main Controller :   Jetson Nano
 Weed-detect     :   Using machine-learning & Bayes Decision
 
 Data Collection :   4G based - Using wireless module
+
+# Usage
+
+## Library install:
+
+copy hardware/libusbcan.so to /lib/ folder in Jetson Nano

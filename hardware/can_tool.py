@@ -1,11 +1,15 @@
 '''
-This file aims to load ControlCAN.dll to send/receive data from serial
+Device-side abtraction of can bus, provide sprayer* method for communication
+
+This file aims to load libusbcan.so to send/receive data from serial
+Before Using, please copy libusbcan.so to /lib/ folder
 '''
 from ctypes import cdll, c_ushort, c_char, c_ubyte, c_uint, POINTER
 from _ctypes import Structure, byref
 import logging
 import threading
 from concurrent.futures import ThreadPoolExecutor
+
 
 class PyVCIBOARD_INFO(Structure):
     _fields_ = [
@@ -123,7 +127,6 @@ class CanConverter():
             self.send_thread = threading.Thread(target=self.send)
         except Exception as e:
             logging.debug("VCI_StartCAN success!")
-        self.pool = ThreadPoolExecutor(max_workers=10)
 
     def receive(self):
         '''
@@ -131,20 +134,34 @@ class CanConverter():
         '''
         reclen = 0
         rec = (PyVCI_CAN_OBJ*300)()
+        ind = 0
+        reclen = self.libUSBCAN.VCI_Receive(
+            self.VCI_USBCAN1, 0, ind, byref(rec), 100, 100)
+        return rec
 
-    def send(self):
+    def send(self, msg):
         '''
         Directly send a data frame regardless of data and information
         '''
         pass
 
 
-class sprayerConverter(CanConverter):
+class sprayerCAN(CanConverter):
     def __init__(self, serial_port):
         super().__init__(serial_port)
 
-    def send_spray(field):
-        pass
+    def send_spray(self, field):
+        send = PyVCI_CAN_OBJ()
+        send.ID = 0
+        send.SendType = 0
+        send.RemoteFlag = 0
+        send.ExternFlag = 1
+        send.DataLen = 8
+        if(self.libUSBCAN.VCI_Transmit(self.VCI_USBCAN1, 0, 0, byref(send), 1) == 1):
+            logging.debug("send message: {}".format(field))
+        else:
+            logging.debug("send failed: {}".format(field))
+            return
 
-    def receive_amount():
+    def receive_amount(self):
         pass
