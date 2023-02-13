@@ -1,0 +1,1 @@
+copying from https://github.com/ravirajsinh45/Crop_and_weed_detection/blob/master/performing_detection/opencv/detection_with_opencv.ipynbd
