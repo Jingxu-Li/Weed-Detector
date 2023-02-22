@@ -17,3 +17,9 @@ Main Controller :   Jetson Nano
 Weed-detect     :   Using machine-learning & Bayes Decision
 
 Data Collection :   4G based - Using wireless module
+
+# Commit your code
+
+Please checkout your code to a feature branch and create PR.
+
+All PR need to be under reviewed and merge to main branch.
