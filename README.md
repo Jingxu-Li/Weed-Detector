@@ -23,3 +23,7 @@ Data Collection :   4G based - Using wireless module
 Please checkout your code to a feature branch and create PR.
 
 All PR need to be under reviewed and merge to main branch.
+
+# Current users
+
+Jingxu Li
