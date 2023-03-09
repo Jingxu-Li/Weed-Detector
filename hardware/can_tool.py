@@ -35,9 +35,9 @@ class CANConverter():
         id = bytes([random.randint(0,255), random.randint(0,255), random.randint(0,255), random.randint(0,255)])
         while length > 8 :
             pre = bytes([168]) + id
-            self.server_socket.sendto(pre+message[sub:sub+7], server)
+            self.server_socket.sendto(pre+message[sub:sub + 8], server)
             sub = sub + 8
             length = length - 8
         pre = bytes([160 + length]) + id
-        self.server_socket.sendto(pre + message[sub:sub + length - 1], server)
-        
+        self.server_socket.sendto(pre + message[sub:sub + length] + bytes(8 - length), server)
+
