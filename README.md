@@ -1,25 +1,39 @@
 # Weed-Detector
+
 Weed Detector aims to automatic detect weeds and take actions to spray
 
+  
+  
 
-# Structure
+# Hardware Components
 
-Sprayer         :   From Co-operator, provide CAN and serial format data
-                    Detailed data will have another file to describe
-
-Stereo Camera   :   Intel D455i
-
-Main Controller :   Jetson Nano
+  
+|Component|model|usage|
+|--|--|--|
+|Sprayer  |YONGJIA 3WSH-500  |Main sprayer, provide engine|
+|Stereo Camera|Intel D455i|Forward vision detection|
+|Main controller|Nvidia Jetson Nano|Local compute and running code|
+|GNSS Module|NONGXIN AMG-PFZ202|Provide GNSS signal|
 
 
 # Functionality
 
-Weed-detect     :   Using machine-learning & Bayes Decision
+  
 
-Data Collection :   4G based - Using wireless module
+Weed-detect : Using machine-learning & Bayes Decision
+
+  
+
+Data Collection : 4G based - Using wireless module
+
+  
 
 # Commit your code
 
+  
+
 Please checkout your code to a feature branch and create PR.
+
+  
 
 All PR need to be under reviewed and merge to main branch.
