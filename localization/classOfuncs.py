@@ -1,10 +1,19 @@
+"""A class of helper functions, including an UTC-to-local 
+time conversion (seems useless at present), a set of 
+geographical and planar motion inter-conversions
+
+Geo-formulas ref Chris Veness:
+https://www.movable-type.co.uk/scripts/latlong.html
+
+Update date: 10/04/23 by ychen441
+"""
+
 import numpy as np
 from datetime import time as dtime
 
 earth_radius = 6317000  # in metres
 
-
-class helpers(object):
+class helpers:
     """Helper functions for geo-conversions, temporal synchronisation, etc."""
 
     def __init__(self):
@@ -134,10 +143,10 @@ class helpers(object):
         return lon, lat
 
 
-"""
 if __name__ == '__main__':
-    from classOfuncs import helpers
     import numpy as np
+    from classOfuncs import helpers
+    
 
     geoconvert = helpers()
     lon_raw = -94.766785
@@ -148,4 +157,4 @@ if __name__ == '__main__':
     lon_back = geo_back[0]
     lat_back = geo_back[1]
     print(lon_back, lat_back)
-"""
+

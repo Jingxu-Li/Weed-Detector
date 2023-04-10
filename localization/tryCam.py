@@ -1,3 +1,13 @@
+"""Cam funcs for setting configs and running Intel D455.
+
+Many appreciates to Ed for his config and streaming methods using Python in:
+https://github.com/autorope/donkeycar/blob/5e234c3101cc5f54935c240819e3840596c753a3/donkeycar/parts/realsense435i.py#L122
+Functions are mainly built on the original code written by him. I have modified some parameters 
+for our test use (Intel D455) and currently disabled depth-mode of the camera.
+
+Update date: 10/04/23 by ychen441
+"""
+
 import time
 import logging
 import numpy as np
@@ -34,10 +44,6 @@ class rs2stream(object):
         self.t_init = time.time()
         self.t_frame = self.t_init
 
-        # Image resize
-        #self.resize = (frame_width != Width) or (frame_height != Height)
-        #self.frame_width = frame_width
-        #self.frame_height = frame_height
         """Set IMU config and start streaming it."""
         self.imu_pipeline = None
         if self.enable_imu:
@@ -73,9 +79,6 @@ class rs2stream(object):
             self.cam_pipeline = None
 
     def get_imu(self):
-        #t_last = self.t_frame
-        #self.t_frame = time.time() - self.t_init
-        #self.frames += 1
         try:
             if self.enable_imu:
                 imu_frames = self.imu_pipeline.wait_for_frames()
@@ -112,14 +115,6 @@ class rs2stream(object):
             #self.color_image = np.asanyarray(color_frame.get_data(),
                                              #dtype=np.uint8)
             self.color_image = np.asanyarray(color_frame.get_data())
-            #if self.resize:
-                #if self.enable_rgb:
-                    #self.color_image = cv2.resize(
-                        #self.color_image,
-                        #(self.frame_width, self.frame_height),
-                        #cv2.INTER_NEAREST)
-                #else:
-                    #None
         # Get visual measurement timestamp
         #self.t_rgb = image_frames.get_timestamp() if self.enable_rgb else None
 
@@ -146,5 +141,4 @@ class rs2stream(object):
     def shutdown(self):
         """Camera shutdown by func stop_pipeline(). 
         """
-        #self.enable_cam = False
         self.stop_pipeline()
