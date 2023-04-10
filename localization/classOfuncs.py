@@ -4,9 +4,10 @@ from datetime import time as dtime
 earth_radius = 6317000  # in metres
 
 
-class helpers:
+class helpers(object):
     """Helper functions for geo-conversions, temporal synchronisation, etc."""
-    def __init__(self) -> None:
+
+    def __init__(self):
         pass
 
     def getlcl(self, time_utc):
@@ -70,7 +71,7 @@ class helpers:
             lonMtrs *= -1
 
         return lonMtrs
-    
+
     def Lat2Cartesian(self, lat):
         """Convert the latitude of a geo-point on earth's surface to Cartesian 
         coordinate where x-axis represents latitude in METRES.
@@ -96,8 +97,11 @@ class helpers:
         latMtrs: latitude in Cartesian system
 
         Returns:
-        lon = geographical longitude
-        lat = geographical latitude
+        lon = geographical longitude in degrees
+        lat = geographical latitude in degrees
+
+        Raise:
+        Ambiguity still exists due to the neg-to-pos operation in Lon/Lat2Cartesian func
         """
         # Set the origin as starting point
         lon_start = 0
@@ -116,8 +120,6 @@ class helpers:
 
         # Compute final geo-location by moving temp location vertically.
         azimuth_lat = 0
-        lon_temp = lon_temp * np.pi / 180
-        lat_temp = lat_temp * np.pi / 180
         angularDist_lat = latMtrs / earth_radius
         lat = np.arcsin(
             np.sin(lat_temp) * np.cos(angularDist_lat) +
@@ -126,5 +128,24 @@ class helpers:
             np.sin(azimuth_lat) * np.sin(angularDist_lat) * np.cos(lat_temp),
             np.cos(angularDist_lat) - np.sin(lat_temp) * np.sin(lat))
         lon = np.remainder(lon_unnorm + 3 * np.pi, 2 * np.pi) - np.pi
+        lon = lon * 180 / np.pi
+        lat = lat * 180 / np.pi
 
         return lon, lat
+
+
+"""
+if __name__ == '__main__':
+    from classOfuncs import helpers
+    import numpy as np
+
+    geoconvert = helpers()
+    lon_raw = -94.766785
+    lat_raw = 38.924145
+    lon = geoconvert.Lon2Cartesian(lon_raw)
+    lat = geoconvert.Lat2Cartesian(lat_raw)
+    geo_back = geoconvert.Cartesian2Geo(lon, lat)
+    lon_back = geo_back[0]
+    lat_back = geo_back[1]
+    print(lon_back, lat_back)
+"""
