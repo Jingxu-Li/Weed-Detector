@@ -8,12 +8,12 @@ import numpy as np
 from RingBufferFuncs import RingBuffer
 
 # Hand-written data for test
-t_std = np.array([1, 2, 3, 4, 8, 10])
-t_unsync = np.array(
-    [1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.4, 4.8, 5, 6, 10.5])
-
 #t_std = np.array([1, 2, 3, 4, 8, 10])
-#t_unsync = np.array([1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.3, 4.8, 5, 9.95, 10.05])
+#t_unsync = np.array(
+    #[1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.4, 4.8, 5, 6, 10.5])
+
+t_std = np.array([1, 2, 3, 4, 8, 10])
+t_unsync = np.array([1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.3, 4.8, 5, 9.95, 10.05])
 
 #t_std = np.array([1, 2, 3, 4, 8, 10])
 #t_unsync = np.array([1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.3, 4.8, 5, 9.95, 9.98])
@@ -48,7 +48,7 @@ for i in range(0, len(t_std)):  # loop for std num times minially
 
         std_buffer.append(t_std[counter_i])  # Append t_std[0], pos_i = 0
 
-        print("counter_i appended", counter_i)
+        #print("counter_i appended", counter_i)
 
         while True:
 
@@ -185,11 +185,11 @@ for i in range(0, len(t_std)):  # loop for std num times minially
                         # Log a potential data loss to the false_counter
                         false_counter += 1
                         if false_counter == tolerance:
-                            print("checkpoint6")
-                            print(sync)
-                            print(false_counter)
-                            print(pos_j_front, pos_j_back, pos_i)
-                            print(unsync_buffer.data, std_buffer.data)
+                            #print("checkpoint6")
+                            print("Synchronised data:", sync)
+                            print("Out-of-bound time:", false_counter)
+                            print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                            print("Buffer info:", unsync_buffer.data, std_buffer.data)
                             sys.exit('imu data loss.')
                         else:  # t_std moves and check if the error appears again
                             # Move data pointer
@@ -308,10 +308,10 @@ for i in range(0, len(t_std)):  # loop for std num times minially
                         false_counter += 1
                         if false_counter == tolerance:
                             #print("checkpoint12")
-                            print(sync)
-                            print(false_counter)
-                            print(pos_j_front, pos_j_back, pos_i)
-                            print(unsync_buffer.data, std_buffer.data)
+                            print("Synchronised data:", sync)
+                            print("Out-of-bound time:", false_counter)
+                            print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                            print("Buffer info:", unsync_buffer.data, std_buffer.data)
                             sys.exit('imu data loss.')
                         else:
                             # t_std moves and check if the error appears again
@@ -328,10 +328,10 @@ for i in range(0, len(t_std)):  # loop for std num times minially
                         pos_i] and unsync_back < std_buffer.data[pos_i]:
                     # Both unsync smaller than t_std, no need for further comparisons temporally, break
                     #print("checkpoint13")
-                    print(sync)
-                    print(false_counter)
-                    print(pos_j_front, pos_j_back, pos_i)
-                    print(unsync_buffer.data, std_buffer.data)
+                    print("Synchronised data:", sync)
+                    print("Out-of-bound time:", false_counter)
+                    print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                    print("Buffer info:", unsync_buffer.data, std_buffer.data)
                     sys.exit('Finish computing.')
 
     elif i >= len(t_std):
@@ -345,11 +345,10 @@ for i in range(0, len(t_std)):  # loop for std num times minially
                     pos_j_back] > std:
                 # the last t_std smaller than current t_unsync, stop computing
                 #print("checkpoint14")
-                print(sync)
-                print(false_counter)
-                print(pos_j_front, pos_j_back, pos_i, i)
-                print(unsync_buffer.data, std_buffer.data)
-
+                print("Synchronised data:", sync)
+                print("Out-of-bound time:", false_counter)
+                print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                print("Buffer info:", unsync_buffer.data, std_buffer.data)
                 sys.exit('Finish computing.')
 
             if unsync_buffer.data[pos_j_front] < std and unsync_buffer.data[
@@ -400,10 +399,10 @@ for i in range(0, len(t_std)):  # loop for std num times minially
                     false_counter += 1
                     if false_counter == tolerance:
                         #print("checkpoint18")
-                        print(sync)
-                        print(false_counter)
-                        print(pos_j_front, pos_j_back, pos_i)
-                        print(unsync_buffer.data, std_buffer.data)
+                        print("Synchronised data:", sync)
+                        print("Out-of-bound time:", false_counter)
+                        print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                        print("Buffer info:", unsync_buffer.data, std_buffer.data)
                         sys.exit('imu data loss.')
                     else:
 
@@ -490,10 +489,10 @@ for i in range(0, len(t_std)):  # loop for std num times minially
                             false_counter += 1
                             if false_counter == tolerance:
                                 #print("checkpoint23")
-                                print(sync)
-                                print(false_counter)
-                                print(pos_j_front, pos_j_back, pos_i)
-                                print(unsync_buffer.data, std_buffer.data)
+                                print("Synchronised data:", sync)
+                                print("Out-of-bound time:", false_counter)
+                                print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                                print("Buffer info:", unsync_buffer.data, std_buffer.data)
                                 sys.exit('imu data loss.')
                             else:
 
@@ -501,15 +500,15 @@ for i in range(0, len(t_std)):  # loop for std num times minially
 
                     if front < std and back < std:
                         #print("checkpoint24")
-                        print(sync)
-                        print(false_counter)
-                        print(pos_j_front, pos_j_back, pos_i)
-                        print(unsync_buffer.data, std_buffer.data)
+                        print("Synchronised data:", sync)
+                        print("Out-of-bound time:", false_counter)
+                        print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+                        print("Buffer info:", unsync_buffer.data, std_buffer.data)
                         sys.exit('Finish computing.')
 
 pos_i -= 1  # Back to the real position since an extra unit is added at the end of the comparison.
 
-print(sync)
-print(false_counter)
-print(pos_j_front, pos_j_back, pos_i)
-print(unsync_buffer.data, std_buffer.data)
+print("Synchronised data:", sync)
+print("Out-of-bound time:", false_counter)
+print("Pointer position (unsync_front, back, std):",pos_j_front, pos_j_back, pos_i)
+print("Buffer info:", unsync_buffer.data, std_buffer.data)
