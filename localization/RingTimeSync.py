@@ -7,7 +7,10 @@ import sys
 import numpy as np
 from RingBufferFuncs import RingBuffer
 
-# Hand-written data for test
+"""Hand-written data for test"""
+# std data nums > unsync data nums 
+# with different types of endings(e.g., both unsync_front and back < std)
+
 #t_std = np.array([1, 2, 3, 4, 8, 10])
 #t_unsync = np.array(
     #[1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.4, 4.8, 5, 6, 10.5])
@@ -18,6 +21,7 @@ t_unsync = np.array([1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.3, 4.8, 5, 9.9
 #t_std = np.array([1, 2, 3, 4, 8, 10])
 #t_unsync = np.array([1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9, 4.2, 4.3, 4.8, 5, 9.95, 9.98])
 
+#std data nums < unsync data nums
 #t_std = np.array([1, 2, 3, 4, 8, 10, 11, 12, 13, 14])
 #t_unsync = np.array([1.95, 2.05, 2.5, 2.8, 2.95, 3.2, 3.9])
 
