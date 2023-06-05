@@ -4,4 +4,4 @@ opencv_python==4.7.0.72
 pynmea2==1.19.0
 pyrealsense2==2.50.0.3812
 pyserial==3.5
-~umpy==1.18.5
+numpy==1.18.5
