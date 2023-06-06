@@ -11,7 +11,7 @@ Weed Detector aims to automatic detect weeds and take actions to spray
 |Component|model|usage|
 |--|--|--|
 |Sprayer  |YONGJIA 3WSH-500  |Main sprayer, provide engine|
-|Stereo Camera|Intel D455i|Forward vision detection|
+|Stereo Camera|Intel D455|Forward vision detection|
 |Main controller|Nvidia Jetson Nano|Local compute and running code|
 |GNSS Module|NONGXIN AMG-PFZ202|Provide GNSS signal|
 
