@@ -61,8 +61,11 @@ class CANConverter():
         # B0-B3: data length
 
         pre = bytes([0x20 + length]) + frame_id
-        self.server_socket.sendto(pre + message + bytes(8 - length), server)
-
+        try:
+            self.server_socket.sendto(pre + message + bytes(8 - length), server)
+        except Exception as e:
+            print(f"Network may occur bug:{e}")
+            return
 
 class driveFrame(CANConverter):
     id = 0
@@ -109,7 +112,7 @@ class sprayerFrame(CANConverter):
             for item in msg:
                 temp = temp*2+item
         self.message = ((int)(temp*4)).to_bytes(3,
-                                                byteorder='big') + self.message[3:8]
+                                                byteorder='little') + self.message[3:8]
 
     def send_message(self, server):
         print("Sprayer sending message:", self.message)
